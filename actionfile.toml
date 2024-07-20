@@ -1,0 +1,3 @@
+[types]
+cmd = "turso db shell http://localhost:8080 < .prismo/sql/user.sql"
+silent = true

@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  # The primary instance of the database
+  primary:
+    image: ghcr.io/tursodatabase/libsql-server:latest
+    ports:
+      - "8080:8080"
+      - "5001:5001"
+    environment:
+      SQLD_NODE: "primary"
+    volumes:
+      - data:/var/opt/libsql
+
+  # Replicas of the primary database
+  replica1:
+    image: ghcr.io/tursodatabase/libsql-server:latest
+    ports:
+      - "8081:8080"
+      - "5002:5001"
+    environment:
+      SQLD_NODE: "replica"
+      SQLD_PRIMARY_URL: "http://localhost:8080"
+
+volumes:
+  data:
+    driver: local
